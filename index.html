@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TidyCSV — Free CSV Tools That Never Upload Your Data</title>
+  <meta name="description" content="Free online CSV tools that run entirely in your browser: CSV to JSON, JSON to CSV, remove duplicate rows. No signup, no upload — your data never leaves your device.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site">
+    <a class="logo" href="index.html">Tidy<span>CSV</span></a>
+    <nav>
+      <a href="csv-to-json.html">CSV → JSON</a>
+      <a href="json-to-csv.html">JSON → CSV</a>
+      <a href="dedupe-csv.html">Remove Duplicates</a>
+    </nav>
+    <span class="privacy-badge">🔒 Your data never leaves your browser</span>
+  </header>
+
+  <main>
+    <h1>CSV tools that never see your data</h1>
+    <p class="tagline">Every tool on this site runs 100% in your browser. No signup, no upload, no server — safe for customer lists, exports with personal data, and anything else you'd rather not paste into a random website.</p>
+
+    <div class="tool-grid">
+      <a class="tool-card" href="csv-to-json.html">
+        <h2>CSV → JSON</h2>
+        <p>Convert CSV to a JSON array of objects. Auto-detects commas, semicolons, tabs, and pipes.</p>
+      </a>
+      <a class="tool-card" href="json-to-csv.html">
+        <h2>JSON → CSV</h2>
+        <p>Turn a JSON array into spreadsheet-ready CSV that opens cleanly in Excel or Google Sheets.</p>
+      </a>
+      <a class="tool-card" href="dedupe-csv.html">
+        <h2>Remove Duplicate Rows</h2>
+        <p>Deduplicate mailing lists and exports, with case-insensitive and whitespace options.</p>
+      </a>
+    </div>
+
+    <section class="faq">
+      <h2>Why local-first?</h2>
+      <p>Most online converters upload your file to their server, process it there, and promise to delete it later. CSV files are usually the sensitive kind — customer lists, employee data, financial exports. TidyCSV takes a different approach: the code runs in your browser, so there is nothing to upload and nothing for us to delete. You can disconnect from the internet after the page loads and every tool keeps working.</p>
+      <h2>Free forever?</h2>
+      <p>The tools on this page are free with no row limits. More tools are on the way — merge, column picker, and batch processing.</p>
+    </section>
+  </main>
+
+  <footer class="site">
+    <p>TidyCSV — free local-first CSV tools. No accounts, no uploads, no tracking of your data.</p>
+    <p>From the maker of SlashKeys, the local-first text expander for Chrome &amp; Edge.</p>
+  </footer>
+</body>
+</html>

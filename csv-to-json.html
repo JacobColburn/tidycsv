@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSV to JSON Converter — Free, No Upload | TidyCSV</title>
+  <meta name="description" content="Convert CSV to JSON instantly in your browser. Free, no signup, no upload — your data never leaves your device. Handles quoted fields, semicolons, and tabs.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site">
+    <a class="logo" href="index.html">Tidy<span>CSV</span></a>
+    <nav>
+      <a href="csv-to-json.html" class="active">CSV → JSON</a>
+      <a href="json-to-csv.html">JSON → CSV</a>
+      <a href="dedupe-csv.html">Remove Duplicates</a>
+    </nav>
+    <span class="privacy-badge">🔒 Your data never leaves your browser</span>
+  </header>
+
+  <main>
+    <h1>CSV to JSON Converter</h1>
+    <p class="tagline">Paste CSV or drop a file — get JSON instantly. Everything runs locally in your browser; nothing is uploaded to any server.</p>
+
+    <div id="dropzone">Drop a .csv file here, or click to choose a file</div>
+    <input type="file" id="file-picker" accept=".csv,.tsv,.txt" hidden>
+
+    <div class="options">
+      <label><input type="checkbox" data-opt="headers" checked> First row is headers</label>
+      <label>Delimiter
+        <select data-opt="delimiter">
+          <option value="">Auto-detect</option>
+          <option value=",">Comma</option>
+          <option value=";">Semicolon</option>
+          <option value="\t">Tab</option>
+          <option value="|">Pipe</option>
+        </select>
+      </label>
+      <button class="btn" id="sample">Try sample</button>
+      <button class="btn" id="clear">Clear</button>
+    </div>
+
+    <div class="panes">
+      <div class="pane">
+        <label for="input">CSV input</label>
+        <textarea id="input" spellcheck="false" placeholder="name,email&#10;Ada Lovelace,ada@example.com"></textarea>
+      </div>
+      <div class="pane">
+        <label for="output">JSON output</label>
+        <textarea id="output" spellcheck="false" readonly placeholder="Result appears here as you type"></textarea>
+        <div class="btn-row">
+          <button class="btn primary" id="copy">Copy</button>
+          <button class="btn" id="download">Download .json</button>
+        </div>
+      </div>
+    </div>
+    <div id="status" class="status"></div>
+
+    <section class="faq">
+      <h2>FAQ</h2>
+      <h3>Is my CSV data uploaded anywhere?</h3>
+      <p>No. The conversion happens entirely in your browser with JavaScript. Your file is never sent to a server, which makes TidyCSV safe for customer lists, exports with personal data, and other sensitive files.</p>
+      <h3>Does it handle semicolon-separated or tab-separated files?</h3>
+      <p>Yes. The delimiter is auto-detected (comma, semicolon, tab, or pipe), and you can override it manually. Quoted fields, embedded commas, and line breaks inside cells are handled per the CSV standard (RFC 4180).</p>
+      <h3>What JSON format do I get?</h3>
+      <p>With "First row is headers" checked you get an array of objects keyed by column name. Unchecked, you get an array of arrays — one array per row.</p>
+    </section>
+  </main>
+
+  <footer class="site">
+    <p>TidyCSV — free local-first CSV tools. No accounts, no uploads, no tracking of your data.</p>
+    <p>From the maker of SlashKeys, the local-first text expander for Chrome &amp; Edge.</p>
+  </footer>
+
+  <script src="src/csv.js"></script>
+  <script>
+    window.TOOL = {
+      downloadName: 'converted.json',
+      sample: 'name,email,city\n"Lovelace, Ada",ada@example.com,London\nGrace Hopper,grace@example.com,"New York"\nKatherine Johnson,kj@example.com,Hampton',
+      run: function (text, opts) {
+        var data = TidyCSV.csvToJson(text, {
+          headers: opts.headers,
+          delimiter: opts.delimiter
+        });
+        var rows = data.length;
+        return {
+          output: JSON.stringify(data, null, 2),
+          message: rows + ' row' + (rows === 1 ? '' : 's') + ' converted.'
+        };
+      }
+    };
+  </script>
+  <script src="src/app.js"></script>
+</body>
+</html>

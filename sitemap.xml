@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO: replace tidycsv.example with the real domain before deploy -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://tidycsv.example/</loc></url>
+  <url><loc>https://tidycsv.example/csv-to-json.html</loc></url>
+  <url><loc>https://tidycsv.example/json-to-csv.html</loc></url>
+  <url><loc>https://tidycsv.example/dedupe-csv.html</loc></url>
+</urlset>

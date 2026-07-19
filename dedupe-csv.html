@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Remove Duplicate Rows from CSV — Free, No Upload | TidyCSV</title>
+  <meta name="description" content="Remove duplicate rows from a CSV file instantly in your browser. Free, no signup, no upload — your data never leaves your device. Case-insensitive and whitespace options included.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site">
+    <a class="logo" href="index.html">Tidy<span>CSV</span></a>
+    <nav>
+      <a href="csv-to-json.html">CSV → JSON</a>
+      <a href="json-to-csv.html">JSON → CSV</a>
+      <a href="dedupe-csv.html" class="active">Remove Duplicates</a>
+    </nav>
+    <span class="privacy-badge">🔒 Your data never leaves your browser</span>
+  </header>
+
+  <main>
+    <h1>Remove Duplicate Rows from CSV</h1>
+    <p class="tagline">Paste CSV or drop a file — duplicate rows are removed instantly, keeping the first occurrence. Everything runs locally in your browser; nothing is uploaded.</p>
+
+    <div id="dropzone">Drop a .csv file here, or click to choose a file</div>
+    <input type="file" id="file-picker" accept=".csv,.tsv,.txt" hidden>
+
+    <div class="options">
+      <label><input type="checkbox" data-opt="hasHeader" checked> First row is headers</label>
+      <label><input type="checkbox" data-opt="ignoreCase"> Ignore case</label>
+      <label><input type="checkbox" data-opt="trimCells"> Ignore extra whitespace</label>
+      <button class="btn" id="sample">Try sample</button>
+      <button class="btn" id="clear">Clear</button>
+    </div>
+
+    <div class="panes">
+      <div class="pane">
+        <label for="input">CSV input</label>
+        <textarea id="input" spellcheck="false" placeholder="email,name&#10;ada@example.com,Ada&#10;ada@example.com,Ada"></textarea>
+      </div>
+      <div class="pane">
+        <label for="output">Deduplicated CSV</label>
+        <textarea id="output" spellcheck="false" readonly placeholder="Result appears here as you type"></textarea>
+        <div class="btn-row">
+          <button class="btn primary" id="copy">Copy</button>
+          <button class="btn" id="download">Download .csv</button>
+        </div>
+      </div>
+    </div>
+    <div id="status" class="status"></div>
+
+    <section class="faq">
+      <h2>FAQ</h2>
+      <h3>Is my data uploaded anywhere?</h3>
+      <p>No. Deduplication happens entirely in your browser with JavaScript — nothing is sent to a server. That makes it safe for mailing lists, customer exports, and other files with personal data.</p>
+      <h3>How are duplicates detected?</h3>
+      <p>Two rows are duplicates when every cell matches exactly. Turn on "Ignore case" to also match rows that differ only in capitalization, and "Ignore extra whitespace" to match rows that differ only by leading or trailing spaces. The first occurrence is always kept, and row order is preserved.</p>
+      <h3>Does it work with semicolon or tab-separated files?</h3>
+      <p>Yes — the delimiter is auto-detected (comma, semicolon, tab, or pipe) and preserved in the output.</p>
+    </section>
+  </main>
+
+  <footer class="site">
+    <p>TidyCSV — free local-first CSV tools. No accounts, no uploads, no tracking of your data.</p>
+    <p>From the maker of SlashKeys, the local-first text expander for Chrome &amp; Edge.</p>
+  </footer>
+
+  <script src="src/csv.js"></script>
+  <script>
+    window.TOOL = {
+      downloadName: 'deduplicated.csv',
+      sample: 'email,name\nada@example.com,Ada Lovelace\ngrace@example.com,Grace Hopper\nada@example.com,Ada Lovelace\nADA@EXAMPLE.COM,Ada Lovelace\nkj@example.com,Katherine Johnson\ngrace@example.com,Grace Hopper',
+      run: function (text, opts) {
+        var result = TidyCSV.dedupeCsv(text, {
+          hasHeader: opts.hasHeader,
+          ignoreCase: opts.ignoreCase,
+          trimCells: opts.trimCells
+        });
+        return {
+          output: result.csv,
+          message: result.removed === 0
+            ? 'No duplicates found in ' + result.total + ' rows.'
+            : result.removed + ' duplicate row' + (result.removed === 1 ? '' : 's') + ' removed (' + result.total + ' rows checked).'
+        };
+      }
+    };
+  </script>
+  <script src="src/app.js"></script>
+</body>
+</html>
